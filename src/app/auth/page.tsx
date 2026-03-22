@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
-import { AlertCircle, User, Mail, Lock, Eye, EyeOff, ShieldCheck } from "lucide-react";
+import { AlertCircle, User, Mail, Lock, Eye, EyeOff, ShieldCheck, Trophy } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 type Tab = "signin" | "signup" | "admin";
@@ -80,6 +80,30 @@ export default function AuthPage() {
       </div>
 
       <div className="w-full max-w-md z-10">
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="flex flex-col items-center justify-center mb-10"
+        >
+          <div className="relative w-20 h-20 mb-6 group cursor-default">
+            <motion.div 
+              animate={{ rotate: 360 }} 
+              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+              className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-primary via-accent to-primary opacity-30 blur-xl group-hover:opacity-50 transition-opacity duration-500"
+            />
+            <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-card to-background border border-white/10 shadow-2xl flex items-center justify-center rotate-3 group-hover:rotate-0 group-hover:scale-105 transition-all duration-500">
+              <Trophy className="w-10 h-10 text-transparent fill-primary/20 stroke-primary drop-shadow-[0_0_15px_rgba(0,240,255,0.8)]" />
+            </div>
+          </div>
+          <h1 className="text-3xl md:text-4xl font-black tracking-tighter text-white drop-shadow-md">
+            VANTAGE<span className="text-primary">.</span>
+          </h1>
+          <p className="text-xs font-semibold text-foreground/40 tracking-[0.3em] uppercase mt-2">
+            Secure Platform Access
+          </p>
+        </motion.div>
+
         {/* Tab Selector */}
         <div className="flex bg-card border border-card-border rounded-2xl p-1 mb-6 gap-1">
           {tabs.map(({ key, label }) => (
