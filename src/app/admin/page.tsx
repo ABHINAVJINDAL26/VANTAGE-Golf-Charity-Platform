@@ -115,14 +115,38 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <div className="flex min-h-[calc(100vh-65px)] bg-background text-foreground">
-      {/* Sidebar */}
-      <aside className="w-64 border-r border-card-border bg-card/80 backdrop-blur-md hidden md:flex flex-col shrink-0">
+    <div className="flex flex-col md:flex-row min-h-[calc(100vh-65px)] bg-background text-foreground">
+      {/* Mobile Top Navigation Tab Bar */}
+      <div className="md:hidden flex overflow-x-auto p-4 gap-2 border-b border-card-border bg-card/80 backdrop-blur sticky top-0 z-40 hide-scrollbar scroll-smooth">
+        {navItems.map(({ key, label, icon: Icon }) => (
+          <button
+            key={key}
+            onClick={() => setActiveSection(key)}
+            className={`whitespace-nowrap flex items-center gap-2 px-4 py-2 rounded-full font-medium text-sm transition-all shrink-0 ${
+              activeSection === key
+                ? "bg-primary text-primary-foreground shadow-md shadow-primary/20"
+                : "bg-background border border-card-border text-foreground/70 hover:bg-card-border/50"
+            }`}
+          >
+            <Icon className="w-4 h-4" />
+            {label}
+          </button>
+        ))}
+        <button onClick={fetchData} className="whitespace-nowrap flex items-center gap-2 px-4 py-2 rounded-full font-medium text-sm transition-all shrink-0 bg-background border border-card-border text-foreground/70 hover:bg-card-border/50">
+           <RefreshCw className={`w-4 h-4 ${dataLoading ? "animate-spin" : ""}`} />
+        </button>
+        <button onClick={handleSignOut} className="whitespace-nowrap flex items-center gap-2 px-4 py-2 rounded-full font-medium text-sm transition-all shrink-0 bg-red-500/10 border border-red-500/20 text-red-500">
+           <LogOut className="w-4 h-4" />
+        </button>
+      </div>
+
+      {/* Sidebar (Desktop Hidden on Mobile) */}
+      <aside className="w-64 border-r border-card-border bg-card/80 backdrop-blur-md hidden md:flex flex-col shrink-0 sticky top-[65px] h-[calc(100vh-65px)]">
         <div className="p-6 border-b border-card-border">
           <span className="text-xl font-bold tracking-tight text-primary">VANTAGE</span>
           <span className="block text-xs uppercase tracking-widest text-foreground/40 mt-0.5">Admin Portal</span>
         </div>
-        <nav className="flex-1 p-4 space-y-1">
+        <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
           {navItems.map(({ key, label, icon: Icon }) => (
             <button
               key={key}
@@ -139,7 +163,7 @@ export default function AdminDashboard() {
             </button>
           ))}
         </nav>
-        <div className="p-4 border-t border-card-border space-y-1">
+        <div className="p-4 border-t border-card-border space-y-1 bg-card/80">
           <button onClick={fetchData} disabled={dataLoading}
             className="w-full flex items-center gap-3 px-4 py-3 text-foreground/50 hover:bg-card-border/40 rounded-lg text-sm transition-colors disabled:opacity-50">
             <RefreshCw className={`w-4 h-4 ${dataLoading ? "animate-spin" : ""}`} /> Refresh Data

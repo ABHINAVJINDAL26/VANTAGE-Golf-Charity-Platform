@@ -72,7 +72,7 @@ export default function Home() {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 1, ease: "easeOut" }}
-        className="absolute bottom-10 flex gap-12 text-foreground/50 text-sm font-medium"
+        className="absolute bottom-6 sm:bottom-10 flex flex-col sm:flex-row items-center gap-4 sm:gap-12 text-foreground/50 text-sm font-medium"
       >
         <div className="flex items-center gap-2">
           <Trophy className="w-4 h-4" /> Monthly Prize Draws
